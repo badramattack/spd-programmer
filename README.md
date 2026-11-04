@@ -35,8 +35,7 @@ backup; **Restore** undoes it.
 
 1. Set the two mode switches (DDR4/DDR5, UDIMM/RDIMM) to match the module;
    two of the four mode LEDs show the selection.
-2. Insert the module: **DDR5 normally, DDR4 rotated 180°**, pushed fully
-   against the end of the socket.
+2. Insert the module: The boad accepts both DDR4 and DDR5 modules, but **DDR4 modules must be rotated 180°**. Insert DDR5 modules with pin 1 at the end of the socket, and insert DDR4 modules with pin 288 at the end of the socket. The pin numbering is usually printed on the module near the pins. Push fully against the end of the socket. If the board raises alignment fault (single blink), recheck pin alignment.
 3. From a PC: `pip install ./host`, then `spdtool info`. Without a PC: hold
    Program (the button labelled **BadRAM** on the board) for 1 s to apply the
    active preset (by default `badram-row`), or press **Restore** to undo it.
