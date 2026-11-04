@@ -27,10 +27,14 @@ backup; **Restore** undoes it.
 
 ## Using it
 
+> [!CAUTION]
+> **Set the mode switches to match the module type before inserting.** The
+> board applies voltages based on the mode switches, which are not compatible
+> across module types. A mode switch that does not match the inserted module
+> type may damage that module.
+
 1. Set the two mode switches (DDR4/DDR5, UDIMM/RDIMM) to match the module;
-   two of the four mode LEDs show the selection. **Get DDR4/DDR5 right before
-   doing anything:** the board checks the module type only after powering it,
-   and a DDR4 module in DDR5 mode briefly gets 5 V or 3.3 V on its VPP pins.
+   two of the four mode LEDs show the selection.
 2. Insert the module: **DDR5 normally, DDR4 rotated 180°**, pushed fully
    against the end of the socket.
 3. From a PC: `pip install ./host`, then `spdtool info`. Without a PC: hold
