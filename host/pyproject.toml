@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spdtool"
+version = "0.1.0"
+description = "Host tool for the DDR4/DDR5 SPD programmer board (RP2040)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+dependencies = ["pyserial>=3.4"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+spdtool = "spdtool.cli:main"
+
+[tool.setuptools]
+packages = ["spdtool"]
