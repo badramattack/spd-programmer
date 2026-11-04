@@ -171,10 +171,10 @@ rails cover those.
 |---|---|---|
 | SW1 DDR4 / DDR5 | GP18 = DDR4, GP17 = DDR5 | SPDT slide switch, common to GND, internal pull-ups |
 | SW4 UDIMM / RDIMM | GP16 = UDIMM, GP9 = RDIMM | same; LRDIMM and MRDIMM count as RDIMM |
-| SW2 Program | GP10 | tactile, to GND |
+| SW2 Program (silkscreen: BadRAM) | GP10 | tactile, to GND |
 | SW3 Restore | GP11 | tactile, to GND |
 | Done (green) | GP12 | 220 Ω, PWM-dimmed to 10 % by the firmware |
-| Modified (yellow) | GP13 | 680 Ω |
+| Modified (yellow; silkscreen: BadRAM) | GP13 | 680 Ω |
 | Busy (yellow) | GP14 | 680 Ω; lit while the module is powered and during the discharge wait: do not remove the module |
 | Fault (red) | GP15 | 680 Ω; blink codes after a failed button action |
 | HV (red) | – | 3.3 k from U6's output: VHV present |

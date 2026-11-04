@@ -7,6 +7,8 @@ with no PC at all: insert a module, hold **Program**, and the board applies a
 preset (by default a BadRAM-style extra row address bit) while keeping a
 backup; **Restore** undoes it.
 
+![The SPD programmer with a DDR5 RDIMM inserted (left), and the back of a second board (right)](docs/images/spd-programmer.jpg)
+
 - DDR4 (EE1004 + TSE2004) and DDR5 (SPD5118 hub) on one half socket.
 - Reversible write protection: DDR4 with the SA0 high voltage generated on the
   board, DDR5 through the hub's offline mode.
@@ -26,12 +28,36 @@ backup; **Restore** undoes it.
 ## Using it
 
 1. Set the two mode switches (DDR4/DDR5, UDIMM/RDIMM) to match the module;
-   two of the four mode LEDs show the selection.
+   two of the four mode LEDs show the selection. **Get DDR4/DDR5 right before
+   doing anything:** the board checks the module type only after powering it,
+   and a DDR4 module in DDR5 mode briefly gets 5 V or 3.3 V on its VPP pins.
 2. Insert the module: **DDR5 normally, DDR4 rotated 180°**, pushed fully
    against the end of the socket.
 3. From a PC: `pip install ./host`, then `spdtool info`. Without a PC: hold
-   Program for 1 s, or press Restore. The Busy LED means the module is powered:
-   do not remove it while Busy is lit.
+   Program (the button labelled **BadRAM** on the board) for 1 s to apply the
+   active preset (by default `badram-row`), or press **Restore** to undo it.
+
+| LED | Meaning |
+|---|---|
+| Busy | The module is powered: **do not remove it** |
+| Done | The last operation succeeded |
+| Modified (labelled BadRAM) | The module carries a Program change (Restore undoes it) |
+| Fault | The last button press failed (see below) |
+| HV | The DDR4 write-protect voltage is on (only during a DDR4 write-protect change) |
+| DDR4 / DDR5 / UDIMM / RDIMM | The mode switch positions |
+
+After a failed button press, Fault stays lit and goes dark briefly **N times**
+every few seconds, until the next press:
+
+| N | Problem | What to check |
+|---|---|---|
+| 1 | Insertion | a mode switch between positions; module not inserted, not fully seated, or offset by a pin |
+| 2 | Electrical | no answer from the module (I2C), supply too low, over-current: reseat it, check the contacts |
+| 3 | Wrong module | the module type doesn't match the switches, or the active preset has nothing for this generation |
+| 4 | Refused | already modified (Restore first), nothing to restore, the preset doesn't apply (e.g. already at the maximum), or the module changed since Program |
+| 5 | Write failed | write protection couldn't be cleared, or the read-back didn't match |
+
+`spdtool button` shows the exact reason for the last press.
 
 See [`host/README.md`](host/README.md) for everything `spdtool` does, and how
 to write your own presets.
